@@ -50,6 +50,7 @@ class Workspace(object):
         ]
         self.pretrained_model = cfg.pretrained_model
         self.use_lora = cfg.use_lora
+        self.using_surf = cfg.using_surf
         self.agent = hydra.utils.instantiate(cfg.agent)
 
         self.replay_buffer = ReplayBuffer(
@@ -139,13 +140,13 @@ class Workspace(object):
         labeled_queries, noisy_queries = 0, 0
         if first_flag == 1:
             # if it is first time to get feedback, need to use random sampling
-            if using_surf:
+            if self.using_surf:
                 labeled_queries = self.reward_model.disagreement_sampling_surf()
             else:
                 labeled_queries = self.reward_model.uniform_sampling()
 
         else:
-            if using_surf:
+            if self.using_surf:
                 labeled_queries = self.reward_model.disagreement_sampling_surf()
             elif self.cfg.feed_type == 0:
                 labeled_queries = self.reward_model.uniform_sampling()
