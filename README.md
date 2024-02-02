@@ -18,6 +18,7 @@ cd custom_dmc2gym
 pip install -e .
 pip install git+https://github.com/rlworkgroup/metaworld.git@master#egg=metaworld
 pip install pybullet
+pip install loralib
 ```
 
 ### Run code
